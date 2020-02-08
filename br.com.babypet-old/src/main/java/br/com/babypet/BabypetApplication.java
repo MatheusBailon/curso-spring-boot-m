@@ -4,12 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BabyPetApplication {
+public class BabypetApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run( BabyPetApplication.class, args );
-	    
-	    System.out.println( "*******" );
-	    System.out.println( "Aplicação rodando...." );
-	  }
+		
+		SpringApplication.run(BabypetApplication.class, args);
+		
+		System.out.println("************");
+		System.out.println("Rodando......");
+	}
 }
