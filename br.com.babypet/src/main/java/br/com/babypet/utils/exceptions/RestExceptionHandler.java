@@ -21,4 +21,9 @@ public class RestExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 	}
 	
+	@ExceptionHandler(NoContetException.class)
+	public ResponseEntity<?> handleNoContetException (NoContetException exception){
+		//Uso o build ao invés do body quando não retorno nada
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
 }

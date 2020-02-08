@@ -10,15 +10,17 @@ import br.com.babypet.utils.ApplicationContextProvider;
 
 public class CpfMustBeUniqueValidator implements ConstraintValidator<CpfMustBeUnique, String>{
 	
-	//@Autowired
+	@Autowired
 	private ClienteRepository clienteRepository;
 	
 	//Um método chamado quando uma classe é inicializada
 	//Basicamente um @Autowired na marra
+	/* Este cara não será mais utilizado
 	@Override
 	public void initialize(CpfMustBeUnique constraintAnnotation) {
 		this.clienteRepository = ApplicationContextProvider.getComponent(ClienteRepository.class);
 	}
+	*/
 	
 	@Override
 	public boolean isValid(String cpf, ConstraintValidatorContext context) {

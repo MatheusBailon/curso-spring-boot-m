@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.babypet.domain.Cliente;
+import br.com.babypet.utils.exceptions.NoContetException;
 
 public class ClienteListModel {
 	
@@ -31,6 +32,9 @@ public class ClienteListModel {
 	}
 	
 	public static List<ClienteListModel> ofList (List<Cliente> clientes){
+		
+		if(clientes.isEmpty()) throw new NoContetException();
+		
 		return clientes.stream().
 				map(cliente -> of(cliente)).//O map transforma esse 1 cliente em um of(cliente)
 				collect(Collectors.toList());

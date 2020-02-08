@@ -27,9 +27,9 @@ public class Cliente {
 	  
   }
   
-  public Cliente(ClienteInsertCommand command) {
+  private Cliente(ClienteInsertCommand command) {
 	  
-	  command.validate();
+	  //command.validate();
 	  
     this.nome = command.getNome();
     this.cpf = command.getCpf();
@@ -39,5 +39,12 @@ public class Cliente {
   public void editar(ClienteUpdateCommand command) {//talvez seja no clienteUpdate
 	  this.nome = command.getNome();
 	  this.email= command.getEmail();
+  }
+  
+  //Retirado a resposabilidade do contrutor de realizar a validação aqui no que chamamos de "FABRICAÇÃO"
+  //A diferença entre o construtor e um "Fabricador" é que o construtor constroi já alocando espaço na memória
+  public static Cliente criar(ClienteInsertCommand command) {
+	  command.validate();
+	  return new Cliente(command);
   }
 }

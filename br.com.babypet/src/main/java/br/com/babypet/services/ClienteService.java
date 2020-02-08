@@ -19,13 +19,17 @@ public class ClienteService {
   
   public Cliente incluir(ClienteInsertCommand command) {
     
-    Cliente cliente = new Cliente(command);
+    Cliente cliente = Cliente.criar(command);
     
     return clienteRepository.save( cliente );
   }
   
   public List<Cliente> listar(){
 	  return clienteRepository.findAll();
+  }
+  
+  public List<Cliente> filtrar(String nome){
+	  return clienteRepository.findByNome(nome);
   }
   
   public Cliente consultar(String id) {

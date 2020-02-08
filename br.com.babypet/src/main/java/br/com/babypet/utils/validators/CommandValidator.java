@@ -11,6 +11,7 @@ import javax.validation.Validator;
 
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 
+import br.com.babypet.utils.ApplicationContextProvider;
 import br.com.babypet.utils.exceptions.BadRequestException;
 import br.com.babypet.utils.exceptions.MessageErrorDetail;
 
@@ -43,6 +44,7 @@ public class CommandValidator<T> extends AbstractValidator{
 		Validator validator = Validation
 				.byDefaultProvider()
 				.configure()
+				.constraintValidatorFactory(ApplicationContextProvider.getValidFactory())
 				.messageInterpolator(interpolator)
 				.buildValidatorFactory()
 				.getValidator();

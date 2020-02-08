@@ -16,12 +16,13 @@ import br.com.babypet.dtos.models.ClienteListModel;
 import br.com.babypet.services.ClienteService;
 
 @RestController
+@RequestMapping("clientes") //É um path padrão todos os métodos terão esse nome no início, antes do seu proprio mapeamento
 public class ClienteController {
 	
   @Autowired
   private ClienteService clienteService;
   
-  @PostMapping("clientes")
+  @PostMapping
   public ResponseEntity<?> inserir(
 		  @RequestBody ClienteInsertCommand command) {
     
@@ -31,14 +32,22 @@ public class ClienteController {
     return ResponseEntity.ok( cliente );
   }
   
-  @GetMapping("clientes")
+  @GetMapping
   public ResponseEntity<?> listar(){
 	  List<Cliente> clientes = clienteService.listar();
 	  List<ClienteListModel> model = ClienteListModel.ofList(clientes);
 	  return ResponseEntity.ok(model);
   }
   
-  @GetMapping("clientes/{id}")
+  //Utiliza Query String
+  @GetMapping("filtro")
+  public ResponseEntity<?> filtrar(@RequestParam String nome){
+	  List<Cliente> clientes = clienteService.filtrar(nome);
+	  List<ClienteListModel> model = ClienteListModel.ofList(clientes);
+	  return ResponseEntity.ok(model);
+  }
+  
+  @GetMapping("{id}")
   public ResponseEntity<?> consultar(
 		  @PathVariable(name = "id") String id){
 	  Cliente cliente = clienteService.consultar(id);
@@ -46,7 +55,7 @@ public class ClienteController {
 	  return ResponseEntity.ok(model);
   }
   
-  @PutMapping("clientes/{id}")
+  @PutMapping("{id}")
   public ResponseEntity<?> alterar(
 	  @PathVariable(name="id") String id,
 		  @Valid @RequestBody ClienteUpdateCommand command){
@@ -54,7 +63,7 @@ public class ClienteController {
 	  return ResponseEntity.ok(cliente);
   }
   
-  @DeleteMapping("clientes/{id}")
+  @DeleteMapping("{id}")
   public ResponseEntity<?> excluir (@PathVariable(name="id") String id){
 	  clienteService.excluir(id);
 	  return ResponseEntity.ok().build();
