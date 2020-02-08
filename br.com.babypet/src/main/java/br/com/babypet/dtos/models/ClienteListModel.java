@@ -3,8 +3,11 @@ package br.com.babypet.dtos.models;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+
 import br.com.babypet.domain.Cliente;
 import br.com.babypet.utils.exceptions.NoContetException;
+import br.com.babypet.utils.models.PageModel;
 
 public class ClienteListModel {
 	
@@ -39,6 +42,16 @@ public class ClienteListModel {
 				map(cliente -> of(cliente)).//O map transforma esse 1 cliente em um of(cliente)
 				collect(Collectors.toList());
 		
+	}
+	
+	public static PageModel<Cliente, ClienteListModel> ofPage(Page<Cliente> clientes){
+		
+		PageModel<Cliente, ClienteListModel> model = new PageModel<>();
+		
+		model.setContetPage(clientes);
+		model.setContentList(ofList(clientes.getContent()));
+		
+		return model;
 	}
 
 }

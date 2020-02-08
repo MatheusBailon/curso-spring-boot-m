@@ -3,6 +3,8 @@ package br.com.babypet.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.babypet.domain.Cliente;
@@ -24,12 +26,12 @@ public class ClienteService {
     return clienteRepository.save( cliente );
   }
   
-  public List<Cliente> listar(){
-	  return clienteRepository.findAll();
+  public Page<Cliente> listar(Pageable pageable){
+	  return clienteRepository.findAll(pageable);
   }
   
-  public List<Cliente> filtrar(String nome){
-	  return clienteRepository.findByNome(nome);
+  public List<Cliente> filtrar(String nome, String email){
+	  return clienteRepository.findByArgumentos(nome, email);
   }
   
   public Cliente consultar(String id) {
